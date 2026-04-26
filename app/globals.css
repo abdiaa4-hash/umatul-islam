@@ -1,0 +1,315 @@
+@import "tailwindcss";
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   UMATUL ISLAM CENTER — Design System v2
+   Palette · Typography · Spacing · Shadow · Motion
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:root {
+  /* ── Color: Forest Green scale ── */
+  --g-950: #050f09;
+  --g-900: #0c1e12;
+  --g-800: #0f2418;
+  --g-700: #1a3d2b;
+  --g-600: #1e4d33;
+  --g-500: #2d6a4f;
+  --g-400: #52b788;
+  --g-200: #95d5b2;
+  --g-100: #d8f3dc;
+  --g-50:  #f2f9f4;
+
+  /* ── Color: Gold scale ── */
+  --gold-900: #7a5200;
+  --gold-700: #a07000;
+  --gold:     #c9a84c;
+  --gold-400: #d4b96a;
+  --gold-300: #e8c97a;
+  --gold-100: #fdf6e3;
+  --gold-50:  #fffcf5;
+
+  /* ── Color: Neutral ── */
+  --bg:      #f7f8f5;
+  --surface: #ffffff;
+  --text:    #0c1a10;
+  --muted:   #4b6851;
+  --subtle:  #8aab92;
+  --border:  #dde8df;
+  --border-strong: #b8ccbc;
+
+  /* ── Typography scale ── */
+  --text-xs:   0.75rem;    /* 12px */
+  --text-sm:   0.875rem;   /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-lg:   1.125rem;   /* 18px */
+  --text-xl:   1.25rem;    /* 20px */
+  --text-2xl:  1.5rem;     /* 24px */
+  --text-3xl:  1.875rem;   /* 30px */
+  --text-4xl:  2.25rem;    /* 36px */
+  --text-5xl:  3rem;       /* 48px */
+
+  /* ── Spacing scale ── */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+
+  /* ── Border radius ── */
+  --radius-sm:  0.5rem;
+  --radius-md:  0.75rem;
+  --radius-lg:  1rem;
+  --radius-xl:  1.25rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* ── Shadow system ── */
+  --shadow-xs:  0 1px 2px rgba(15,36,24,.04);
+  --shadow-sm:  0 1px 4px rgba(15,36,24,.06), 0 2px 8px rgba(15,36,24,.04);
+  --shadow-md:  0 4px 12px rgba(15,36,24,.08), 0 2px 4px rgba(15,36,24,.05);
+  --shadow-lg:  0 8px 24px rgba(15,36,24,.12), 0 4px 8px rgba(15,36,24,.06);
+  --shadow-xl:  0 16px 48px rgba(15,36,24,.16), 0 8px 16px rgba(15,36,24,.08);
+  --shadow-gold: 0 0 0 3px rgba(201,168,76,.2), 0 4px 20px rgba(201,168,76,.15);
+
+  /* ── Motion ── */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 350ms;
+
+  /* ── Layout ── */
+  --max-w-content: 680px;
+  --max-w-wide:    960px;
+  --max-w-full:   1200px;
+  --nav-h: 64px;
+}
+
+/* ━━ Reset ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-inter, system-ui, sans-serif);
+  font-size: var(--text-base);
+  line-height: 1.65;
+  min-height: 100dvh;
+}
+
+img, video { max-width: 100%; display: block; }
+button { font-family: inherit; }
+
+/* ━━ Accessibility ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+:focus-visible {
+  outline: 2.5px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Skip-to-content */
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: var(--space-4);
+  z-index: 9999;
+  padding: var(--space-3) var(--space-5);
+  background: var(--gold);
+  color: var(--g-900);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: top var(--duration-fast) var(--ease-out);
+}
+.skip-link:focus { top: var(--space-4); }
+
+/* ━━ Typography ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.font-cinzel { font-family: 'Cinzel', 'Cormorant Garamond', Georgia, serif; }
+.font-amiri  { font-family: 'Amiri', 'Noto Naskh Arabic', serif; }
+
+/* Arabic */
+[dir="rtl"], [lang="ar"] { direction: rtl; }
+
+/* ━━ Card ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--duration-base) var(--ease-out),
+              transform  var(--duration-base) var(--ease-out);
+}
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+/* ━━ Buttons ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0.875rem 1.75rem;
+  background: linear-gradient(135deg, var(--g-800), var(--g-600));
+  color: #fff;
+  font-family: 'Cinzel', Georgia, serif;
+  font-weight: 700;
+  font-size: var(--text-sm);
+  letter-spacing: 0.025em;
+  border: 1px solid rgba(201,168,76,.4);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--duration-base) var(--ease-out);
+  white-space: nowrap;
+}
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--g-700), var(--g-500));
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+.btn-primary:active { transform: translateY(0); }
+.btn-primary:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, var(--gold), var(--gold-300));
+  color: var(--g-900);
+  font-family: 'Cinzel', Georgia, serif;
+  font-weight: 800;
+  font-size: var(--text-sm);
+  letter-spacing: 0.03em;
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--duration-base) var(--ease-out);
+  white-space: nowrap;
+}
+.btn-gold:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(201,168,76,.4);
+}
+
+/* ━━ Form input ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.field {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-family: inherit;
+  color: var(--text);
+  background: var(--g-50);
+  outline: none;
+  transition: border-color var(--duration-fast) ease,
+              box-shadow   var(--duration-fast) ease;
+}
+.field:focus {
+  border-color: var(--g-800);
+  box-shadow: 0 0 0 3px rgba(15,36,24,.08);
+}
+.field::placeholder { color: var(--subtle); }
+
+/* ━━ Section header ornament ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+}
+.ornament::before, .ornament::after {
+  content: '';
+  height: 1px;
+  width: 56px;
+  background: linear-gradient(to right, transparent, var(--gold));
+}
+.ornament::after {
+  background: linear-gradient(to left, transparent, var(--gold));
+}
+
+/* ━━ Prayer card states ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.prayer-active {
+  background: linear-gradient(135deg, var(--g-800) 0%, var(--g-600) 100%);
+  border: 2px solid var(--gold) !important;
+  box-shadow: var(--shadow-gold) !important;
+}
+.prayer-past { opacity: 0.5; }
+
+/* ━━ Gold bar accent ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.gold-bar { border-left: 3px solid var(--gold); }
+[dir="rtl"] .gold-bar { border-left: none; border-right: 3px solid var(--gold); }
+
+/* ━━ Smooth micro-interactions ━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.trans {
+  transition: all var(--duration-base) var(--ease-out);
+}
+.trans-fast {
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+/* ━━ Gradient text ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.text-gold-gradient {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-300) 50%, var(--gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ━━ Dot pattern helper ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.dot-pattern {
+  background-image: radial-gradient(circle at 1px 1px, rgba(201,168,76,.08) 1px, transparent 0);
+  background-size: 28px 28px;
+}
+
+/* ━━ Scrollbar ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--g-50); }
+::-webkit-scrollbar-thumb { background: var(--g-400); border-radius: var(--radius-full); }
+
+/* ━━ Reduced motion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ━━ Print ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@media print {
+  nav, footer, .no-print { display: none !important; }
+  body { background: #fff; color: #000; }
+}
