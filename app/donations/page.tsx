@@ -16,13 +16,6 @@ const CONFIG = {
 
 const AMOUNTS = [25, 50, 100, 250, 500]
 
-const IMPACT = [
-  { amount: 25,  label: 'Keeps the lights on for a week'    },
-  { amount: 50,  label: 'Provides Islamic books for youth'   },
-  { amount: 100, label: 'Helps maintain the prayer hall'    },
-  { amount: 250, label: "Sponsors a student's Quran classes" },
-  { amount: 500, label: 'Contributes to masjid expansion'   },
-]
 
 const STATS = [
   { n: '2001',      label: 'Established'   },
@@ -87,10 +80,10 @@ export default function DonationsPage() {
   const [freq, setFreq]     = useState<'one-time' | 'monthly'>('one-time')
   const [sel, setSel]       = useState<number | null>(100)
   const [custom, setCustom] = useState('')
+  const [reason, setReason] = useState('')
   const [method, setMethod] = useState<Method | null>(null)
 
-  const amount  = custom ? Number(custom) : sel
-  const impact  = IMPACT.slice().reverse().find(i => amount != null && amount >= i.amount)
+  const amount = custom ? Number(custom) : sel
 
   const payUrl = (m: Method): string => {
     const amt = amount ?? 0
@@ -214,15 +207,31 @@ export default function DonationsPage() {
               </div>
             </div>
 
-            {/* Impact banner */}
-            {impact && amount ? (
-              <div style={{ borderRadius: 14, padding: '16px 20px', background: 'linear-gradient(135deg, #0f2418, #1e4d33)', border: '1px solid rgba(201,168,76,.2)', display: 'flex', alignItems: 'center', gap: 14 }}>
-                <p style={{ fontSize: '.88rem', fontWeight: 600, color: '#e8c97a', flex: 1 }}>{impact.label}</p>
-                <span className="font-cinzel" style={{ fontWeight: 900, fontSize: '1.3rem', color: '#fff', flexShrink: 0 }}>${amount}</span>
+            {/* Reason / dedication */}
+            {amount ? (
+              <div style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(201,168,76,.25)' }}>
+                <div style={{ background: 'linear-gradient(135deg, #0f2418, #1e4d33)', padding: '12px 18px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <p style={{ fontSize: '.78rem', fontWeight: 700, color: 'rgba(255,255,255,.7)', letterSpacing: '.06em', textTransform: 'uppercase' }}>Donating</p>
+                  <span className="font-cinzel" style={{ fontWeight: 900, fontSize: '1.2rem', color: '#c9a84c' }}>${amount}{freq === 'monthly' ? '/mo' : ''}</span>
+                </div>
+                <div style={{ padding: '14px 18px', background: 'rgba(15,36,24,.03)' }}>
+                  <label htmlFor="don-reason" style={{ display: 'block', fontSize: '.72rem', fontWeight: 700, color: 'var(--subtle)', textTransform: 'uppercase', letterSpacing: '.1em', marginBottom: 8 }}>
+                    What is this donation for? <span style={{ fontWeight: 400, textTransform: 'none', letterSpacing: 0 }}>(optional)</span>
+                  </label>
+                  <input
+                    id="don-reason"
+                    type="text"
+                    value={reason}
+                    onChange={e => setReason(e.target.value)}
+                    placeholder="e.g. Masjid renovation, in memory of…, general sadaqah"
+                    className="field"
+                    maxLength={120}
+                  />
+                </div>
               </div>
             ) : (
               <div style={{ borderRadius: 14, padding: '14px', textAlign: 'center', background: 'var(--g-50)', border: '1px dashed var(--border-strong)' }}>
-                <p style={{ fontSize: '.85rem', color: 'var(--subtle)' }}>Select an amount to see your impact</p>
+                <p style={{ fontSize: '.85rem', color: 'var(--subtle)' }}>Select an amount above to continue</p>
               </div>
             )}
 
