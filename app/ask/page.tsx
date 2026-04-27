@@ -243,7 +243,7 @@ export default function AskPage() {
             {!anon && (
               <div>
                 <label htmlFor="q-name" style={{ display: 'block', fontSize: '.75rem', fontWeight: 700, color: 'var(--subtle)', textTransform: 'uppercase', letterSpacing: '.1em', marginBottom: 8 }}>
-                  {t('nameLabel')} <span style={{ fontWeight: 400, textTransform: 'none', letterSpacing: 0, fontSize: '.78rem' }}>({t('donationReasonOptional')})</span>
+                  {t('nameLabel')} {anon && <span style={{ fontWeight: 400, textTransform: 'none', letterSpacing: 0, fontSize: '.78rem' }}>({t('donationReasonOptional')})</span>}
                 </label>
                 <input id="q-name" type="text" value={name} onChange={e => setName(e.target.value)}
                   placeholder={t('namePlaceholder')} className="field" autoComplete="name" />
