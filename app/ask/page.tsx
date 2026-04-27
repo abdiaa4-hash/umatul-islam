@@ -6,32 +6,6 @@ import { useLang } from '../contexts/LanguageContext'
 
 type Cat = 'catFiqh' | 'catCommunity' | 'catEvents' | 'catGeneral'
 
-const CAT_META: { key: Cat; labelEn: string }[] = [
-  { key: 'catFiqh',      labelEn: 'Fiqh & Rulings'   },
-  { key: 'catCommunity', labelEn: 'Community'         },
-  { key: 'catEvents',    labelEn: 'Events & Programs' },
-  { key: 'catGeneral',   labelEn: 'General'           },
-]
-
-const FAQS = [
-  {
-    q: 'How long does it take to get a response?',
-    a: 'Most questions are addressed at the following Jumu\'ah Khutbah or within 3–5 business days privately by email if you provide contact info.',
-  },
-  {
-    q: 'Can I submit a question anonymously?',
-    a: 'Absolutely. Enable anonymous mode before submitting — your identity will never be shared with anyone, including the Imam.',
-  },
-  {
-    q: 'What kinds of questions can I ask?',
-    a: 'Any sincere Islamic question is welcome: fiqh (rulings), aqeedah (belief), family matters, community concerns, or general guidance. There are no "wrong" questions.',
-  },
-  {
-    q: 'Will my question be shared publicly?',
-    a: 'Only with your explicit permission. The Imam may use anonymized questions in Khutbah or educational content, but your personal information is never disclosed.',
-  },
-]
-
 /* ─── Icons ──────────────────────────────────────────────────────────── */
 const SendIcon = () => <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
 const CheckCircle = () => <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
@@ -72,10 +46,24 @@ export default function AskPage() {
   const [busy, setBusy]         = useState(false)
   const [err, setErr]           = useState('')
 
+  const CAT_META: { key: Cat; label: string }[] = [
+    { key: 'catFiqh',      label: t('catFiqh')      },
+    { key: 'catCommunity', label: t('catCommunity') },
+    { key: 'catEvents',    label: t('catEvents')    },
+    { key: 'catGeneral',   label: t('catGeneral')   },
+  ]
+
+  const FAQS = [
+    { q: t('faq1q'), a: t('faq1a') },
+    { q: t('faq2q'), a: t('faq2a') },
+    { q: t('faq3q'), a: t('faq3a') },
+    { q: t('faq4q'), a: t('faq4a') },
+  ]
+
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!question.trim()) { setErr('Please enter your question before submitting.'); return }
-    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setEmailErr('Please enter a valid email address.'); return }
+    if (!question.trim()) { setErr(t('questionLabel') + ' required'); return }
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setEmailErr(t('emailError')); return }
     setErr('')
     setEmailErr('')
     setBusy(true)
@@ -93,7 +81,7 @@ export default function AskPage() {
             <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(201,168,76,.12)', border: '1.5px solid rgba(201,168,76,.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', color: '#c9a84c' }}>
               <CheckCircle />
             </div>
-            <h2 className="font-cinzel" style={{ color: '#fff', fontSize: '1.5rem', fontWeight: 800, marginBottom: 8 }}>Question Received</h2>
+            <h2 className="font-cinzel" style={{ color: '#fff', fontSize: '1.5rem', fontWeight: 800, marginBottom: 8 }}>{t('questionReceived')}</h2>
             <p className="font-amiri" lang="ar" style={{ color: '#e8c97a', fontSize: '1.6rem', direction: 'rtl' }}>جَزَاكَ اللَّهُ خَيْرًا</p>
           </div>
           <div style={{ background: 'var(--surface)', padding: '28px 28px', border: '1px solid var(--border)', borderTop: 'none' }}>
@@ -101,13 +89,13 @@ export default function AskPage() {
               {t('confirmDesc')}
             </p>
             <div style={{ borderRadius: 14, padding: '16px 18px', background: 'var(--g-50)', border: '1px solid var(--border)', marginBottom: 16 }}>
-              <p style={{ fontSize: '.68rem', fontWeight: 700, color: 'var(--subtle)', textTransform: 'uppercase', letterSpacing: '.1em', marginBottom: 6 }}>Your Question</p>
+              <p style={{ fontSize: '.68rem', fontWeight: 700, color: 'var(--subtle)', textTransform: 'uppercase', letterSpacing: '.1em', marginBottom: 6 }}>{t('yourQuestionLabel')}</p>
               <p style={{ fontSize: '.88rem', fontStyle: 'italic', color: 'var(--g-900)', lineHeight: 1.65 }}>&ldquo;{question}&rdquo;</p>
             </div>
             {anon && (
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, borderRadius: 12, padding: '12px 14px', background: 'rgba(15,36,24,.04)', border: '1px solid var(--border)', marginBottom: 16 }}>
                 <span style={{ color: 'var(--g-600)', flexShrink: 0 }}><EyeOffIcon /></span>
-                <p style={{ fontSize: '.78rem', color: 'var(--g-700)', fontWeight: 500 }}>Submitted anonymously — your identity is fully protected</p>
+                <p style={{ fontSize: '.78rem', color: 'var(--g-700)', fontWeight: 500 }}>{t('submittedAnonymously')}</p>
               </div>
             )}
             <button onClick={() => { setDone(false); setQuestion(''); setName(''); setEmail(''); setAnon(false); setCat('catGeneral') }}
@@ -140,7 +128,7 @@ export default function AskPage() {
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 2, background: 'linear-gradient(to right, transparent, #c9a84c, transparent)' }} />
 
         <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', textAlign: 'center', padding: '0 20px 52px' }}>
-          <p style={{ color: 'rgba(201,168,76,.8)', fontSize: '.68rem', fontWeight: 700, letterSpacing: '.25em', textTransform: 'uppercase', marginBottom: 12 }}>Islamic Guidance</p>
+          <p style={{ color: 'rgba(201,168,76,.8)', fontSize: '.68rem', fontWeight: 700, letterSpacing: '.25em', textTransform: 'uppercase', marginBottom: 12 }}>{t('islamicGuidance')}</p>
           <h1 id="ask-h1" className="font-cinzel" style={{ color: '#fff', fontSize: 'clamp(2rem, 5.5vw, 3.5rem)', fontWeight: 900, lineHeight: 1.05, marginBottom: 14, textShadow: '0 2px 30px rgba(0,0,0,.4)' }}>
             {t('askTitle')}
           </h1>
@@ -153,9 +141,9 @@ export default function AskPage() {
         {/* ══════ TRUST CARDS ══════ */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 36 }}>
           {[
-            { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>, title: 'Imam Reviewed', desc: 'Every question read personally' },
-            { icon: <EyeOffIcon />, title: '100% Anonymous', desc: 'Your identity stays private'       },
-            { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>, title: "Fri. Response", desc: "Addressed at Jumu'ah" },
+            { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>, title: t('trustImamReviewed'), desc: t('trustImamDesc') },
+            { icon: <EyeOffIcon />, title: t('trustAnonymous'), desc: t('trustAnonDesc') },
+            { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>, title: t('trustResponse'), desc: t('trustResponseDesc') },
           ].map(({ icon, title, desc }) => (
             <div key={title} style={{ background: 'var(--surface)', borderRadius: 18, padding: '20px 14px', textAlign: 'center', border: '1px solid var(--border)', boxShadow: '0 2px 10px rgba(0,0,0,.04)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
               <div style={{ width: 42, height: 42, borderRadius: 12, background: 'var(--g-100)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--g-700)' }}>{icon}</div>
@@ -169,7 +157,7 @@ export default function AskPage() {
         <div style={{ background: 'var(--surface)', borderRadius: 20, padding: '28px 28px', border: '1px solid var(--border)', marginBottom: 24 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 22 }}>
             <div style={{ width: 28, height: 2, background: 'var(--gold)', borderRadius: 99 }} />
-            <h2 className="font-cinzel" style={{ fontWeight: 700, fontSize: '.88rem', color: 'var(--g-900)', letterSpacing: '.04em' }}>Common Questions</h2>
+            <h2 className="font-cinzel" style={{ fontWeight: 700, fontSize: '.88rem', color: 'var(--g-900)', letterSpacing: '.04em' }}>{t('commonQuestions')}</h2>
           </div>
           <div>
             {FAQS.map(faq => <FaqItem key={faq.q} {...faq} />)}
@@ -185,8 +173,8 @@ export default function AskPage() {
               <SendIcon />
             </div>
             <div>
-              <p className="font-cinzel" style={{ color: '#fff', fontWeight: 700, fontSize: '.95rem', lineHeight: 1.2 }}>Submit Your Question</p>
-              <p style={{ color: 'rgba(255,255,255,.4)', fontSize: '.75rem', marginTop: 2 }}>All questions reviewed with care</p>
+              <p className="font-cinzel" style={{ color: '#fff', fontWeight: 700, fontSize: '.95rem', lineHeight: 1.2 }}>{t('submitYourQuestion')}</p>
+              <p style={{ color: 'rgba(255,255,255,.4)', fontSize: '.75rem', marginTop: 2 }}>{t('allQuestionsReviewed')}</p>
             </div>
           </div>
 
@@ -198,12 +186,12 @@ export default function AskPage() {
                 {t('categoryLabel')}
               </legend>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 8 }}>
-                {CAT_META.map(({ key, labelEn }) => (
+                {CAT_META.map(({ key, label }) => (
                   <button key={key} type="button" onClick={() => setCat(key)} aria-pressed={cat === key}
                     className="cat-btn"
                     style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '13px 16px', borderRadius: 14, fontSize: '.85rem', fontWeight: 600, cursor: 'pointer', textAlign: 'left', background: cat === key ? 'var(--g-900)' : 'var(--g-50)', border: cat === key ? '2px solid var(--g-900)' : '1.5px solid var(--border)', color: cat === key ? '#fff' : 'var(--muted)', boxShadow: cat === key ? '0 4px 14px rgba(15,36,24,.2)' : 'none' }}
                   >
-                    {labelEn}
+                    {label}
                   </button>
                 ))}
               </div>
@@ -213,7 +201,7 @@ export default function AskPage() {
 
             {/* Privacy toggle */}
             <div>
-              <p style={{ fontSize: '.75rem', fontWeight: 700, color: 'var(--subtle)', textTransform: 'uppercase', letterSpacing: '.1em', marginBottom: 10 }}>Privacy</p>
+              <p style={{ fontSize: '.75rem', fontWeight: 700, color: 'var(--subtle)', textTransform: 'uppercase', letterSpacing: '.1em', marginBottom: 10 }}>{t('privacyLabel')}</p>
               <button type="button" onClick={() => setAnon(!anon)} aria-pressed={anon}
                 style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 16px', borderRadius: 14, background: anon ? 'rgba(15,36,24,.05)' : 'var(--g-50)', border: `2px solid ${anon ? 'var(--g-800)' : 'var(--border)'}`, cursor: 'pointer', transition: 'all .15s' }}
               >
@@ -222,8 +210,8 @@ export default function AskPage() {
                     <EyeOffIcon />
                   </div>
                   <div style={{ textAlign: 'left' }}>
-                    <p style={{ fontSize: '.88rem', fontWeight: 600, color: 'var(--g-900)' }}>{anon ? 'Submitting anonymously' : 'Submit anonymously'}</p>
-                    <p style={{ fontSize: '.72rem', color: 'var(--subtle)', marginTop: 1 }}>{anon ? 'Your name will NOT be shared' : 'Your name is visible to the Imam only'}</p>
+                    <p style={{ fontSize: '.88rem', fontWeight: 600, color: 'var(--g-900)' }}>{anon ? t('submittingAnon') : t('submitAnonymously')}</p>
+                    <p style={{ fontSize: '.72rem', color: 'var(--subtle)', marginTop: 1 }}>{anon ? t('nameNotShared') : t('nameVisibleToImam')}</p>
                   </div>
                 </div>
                 {/* Toggle */}
@@ -237,7 +225,7 @@ export default function AskPage() {
             {!anon && (
               <div>
                 <label htmlFor="q-name" style={{ display: 'block', fontSize: '.75rem', fontWeight: 700, color: 'var(--subtle)', textTransform: 'uppercase', letterSpacing: '.1em', marginBottom: 8 }}>
-                  {t('nameLabel')} <span style={{ fontWeight: 400, textTransform: 'none', letterSpacing: 0, fontSize: '.78rem' }}>(optional)</span>
+                  {t('nameLabel')} <span style={{ fontWeight: 400, textTransform: 'none', letterSpacing: 0, fontSize: '.78rem' }}>({t('donationReasonOptional')})</span>
                 </label>
                 <input id="q-name" type="text" value={name} onChange={e => setName(e.target.value)}
                   placeholder={t('namePlaceholder')} className="field" autoComplete="name" />
@@ -247,14 +235,14 @@ export default function AskPage() {
             {/* Email */}
             <div>
               <label htmlFor="q-email" style={{ display: 'block', fontSize: '.75rem', fontWeight: 700, color: 'var(--subtle)', textTransform: 'uppercase', letterSpacing: '.1em', marginBottom: 8 }}>
-                Email Address <span style={{ fontWeight: 400, textTransform: 'none', letterSpacing: 0, fontSize: '.78rem' }}>(optional — for a private reply)</span>
+                {t('emailAddressLabel')} <span style={{ fontWeight: 400, textTransform: 'none', letterSpacing: 0, fontSize: '.78rem' }}>{t('emailOptionalDesc')}</span>
               </label>
               <input
                 id="q-email"
                 type="email"
                 value={email}
                 onChange={e => { setEmail(e.target.value); if (emailErr) setEmailErr('') }}
-                placeholder="your@email.com"
+                placeholder={t('emailPlaceholder')}
                 className="field"
                 autoComplete="email"
                 style={{ borderColor: emailErr ? '#ef4444' : email ? 'var(--g-600)' : 'var(--border)' }}
@@ -294,7 +282,7 @@ export default function AskPage() {
               {busy ? (
                 <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
                   <span style={{ width: 16, height: 16, borderRadius: '50%', border: '2px solid rgba(255,255,255,.3)', borderTopColor: '#fff', animation: 'spin 0.7s linear infinite', display: 'inline-block' }} aria-hidden="true" />
-                  Sending your question…
+                  {t('sendingQuestion')}
                 </span>
               ) : (
                 <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
@@ -305,7 +293,7 @@ export default function AskPage() {
             </button>
 
             <p style={{ textAlign: 'center', fontSize: '.75rem', color: 'var(--subtle)', lineHeight: 1.7 }}>
-              Reviewed personally by the Imam. No personal data is shared or sold.
+              {t('reviewedByImam')}
             </p>
           </form>
         </div>
@@ -313,8 +301,8 @@ export default function AskPage() {
         {/* Contact alternative */}
         <div style={{ marginTop: 20, borderRadius: 18, padding: '20px 24px', background: 'var(--g-50)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
           <div>
-            <p style={{ fontWeight: 700, fontSize: '.88rem', color: 'var(--g-900)', marginBottom: 2 }}>Prefer to speak in person?</p>
-            <p style={{ fontSize: '.8rem', color: 'var(--muted)' }}>The Imam is available after Jumu&apos;ah and Isha prayers.</p>
+            <p style={{ fontWeight: 700, fontSize: '.88rem', color: 'var(--g-900)', marginBottom: 2 }}>{t('preferInPerson')}</p>
+            <p style={{ fontSize: '.8rem', color: 'var(--muted)' }}>{t('imamAvailable')}</p>
           </div>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: '.8rem', fontWeight: 700, color: 'var(--g-600)', whiteSpace: 'nowrap' }}>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>

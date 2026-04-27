@@ -8,6 +8,7 @@ import { useLang, Lang } from '../contexts/LanguageContext'
 const LANGS: { code: Lang; label: string }[] = [
   { code: 'en', label: 'English'  },
   { code: 'ar', label: 'العربية'  },
+  { code: 'so', label: 'Soomaali' },
 ]
 
 /* ── Minimal SVG Icons ── */
@@ -106,7 +107,7 @@ export default function Navbar() {
               onMouseEnter={e => { e.currentTarget.style.boxShadow = '0 0 0 2px rgba(201,168,76,.7), 0 6px 24px rgba(201,168,76,.6)'; e.currentTarget.style.transform = 'translateY(-1px)' }}
               onMouseLeave={e => { e.currentTarget.style.boxShadow = '0 0 0 2px rgba(201,168,76,.4), 0 4px 16px rgba(201,168,76,.45)'; e.currentTarget.style.transform = 'translateY(0)' }}
             >
-              <HeartIcon /> Donate
+              <HeartIcon /> {t('navDonateCta')}
             </Link>
 
             {/* Language dropdown */}
@@ -205,7 +206,7 @@ export default function Navbar() {
                 letterSpacing: '0.03em',
               }}
             >
-              <HeartIcon /> Donate to the Masjid
+              <HeartIcon /> {t('navDonateMobile')}
             </Link>
           </div>
         )}

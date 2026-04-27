@@ -55,27 +55,6 @@ const C = {
   white:   '#ffffff',
 }
 
-/* ─── Static data ───────────────────────────────────────────────────── */
-const PROGRAMS = [
-  { icon: 'Q', title: 'Quranic Education',  desc: 'Weekly Tajweed and memorization classes for children and adults of all levels.',     href: '/azkars'   },
-  { icon: 'W', title: "Women's Circle",      desc: "Sisters-only halaqah every Sunday. Quran, fiqh, and sisterhood.",                   href: '/events'   },
-  { icon: 'Y', title: 'Youth Halaqah',       desc: 'Ages 13–25. Faith, identity, and purpose in America — every Saturday evening.',     href: '/events'   },
-  { icon: 'C', title: 'Community Support',   desc: 'Food pantry, family assistance, and newcomer services for those in need.',          href: '/events'   },
-]
-
-const EVENTS = [
-  { date: 'Apr 26',  day: 'SUN', title: 'Islamic History Lecture',    time: '6:00 – 8:00 PM', loc: 'Main Hall',        tag: 'Lecture'  },
-  { date: 'May 3',   day: 'SAT', title: 'Youth Halaqah Night',        time: '6:00 – 9:00 PM', loc: 'Youth Room',       tag: 'Youth'    },
-  { date: 'May 10',  day: 'SAT', title: 'Islamic Parenting Workshop', time: '2:00 – 5:00 PM', loc: 'Conference Room', tag: 'Workshop' },
-]
-
-const TRUST = [
-  { n: '2001',      label: 'Established'        },
-  { n: '501(c)(3)', label: 'Verified Nonprofit' },
-  { n: 'ISNA',      label: 'Prayer Method'      },
-  { n: '12+',       label: 'Weekly Programs'    },
-]
-
 /* ─── Reusable atoms ────────────────────────────────────────────────── */
 function Eyebrow({ children, center = false }: { children: React.ReactNode; center?: boolean }) {
   return (
@@ -95,6 +74,26 @@ export default function Home() {
   const { prayers, hijriDate, gregorianDate, loading } = usePrayerTimes()
   const activeIdx = getActiveIndex(prayers)
   const cd        = useCountdown(prayers, activeIdx)
+
+  const PROGRAMS = [
+    { icon: 'Q', title: t('prog1Title'), desc: t('prog1Desc'), href: '/azkars'   },
+    { icon: 'W', title: t('prog2Title'), desc: t('prog2Desc'), href: '/events'   },
+    { icon: 'Y', title: t('prog3Title'), desc: t('prog3Desc'), href: '/events'   },
+    { icon: 'C', title: t('prog4Title'), desc: t('prog4Desc'), href: '/events'   },
+  ]
+
+  const EVENTS = [
+    { date: 'Apr 26', day: 'SUN', title: t('prog1Title'), time: '6:00 – 8:00 PM', loc: 'Main Hall',        tag: t('tabSpecial') },
+    { date: 'May 3',  day: 'SAT', title: t('prog3Title'), time: '6:00 – 9:00 PM', loc: 'Youth Room',       tag: t('tabWeekly')  },
+    { date: 'May 10', day: 'SAT', title: t('prog1Title'), time: '2:00 – 5:00 PM', loc: 'Conference Room',  tag: t('tabSpecial') },
+  ]
+
+  const TRUST = [
+    { n: '2001',      label: t('statEstablished')  },
+    { n: '501(c)(3)', label: t('statNonprofit')     },
+    { n: 'ISNA',      label: t('statMethod')        },
+    { n: '12+',       label: t('statPrograms')      },
+  ]
 
   return (
     <div style={{ background: C.cream, color: C.text, fontFamily: 'var(--font-inter, system-ui, sans-serif)' }}>
@@ -121,17 +120,14 @@ export default function Home() {
         .live-dot { animation: fadePulse 2s ease-in-out infinite; }
       `}</style>
 
-      {/* ══════════════════════════════════════════════════════════════════
-          1. PRAYER TIMES — the hero
-      ══════════════════════════════════════════════════════════════════ */}
+      {/* ══ 1. PRAYER TIMES ══ */}
       <section style={{ background: C.sand, padding: '56px 20px 52px', borderBottom: `1px solid ${C.border}` }}>
         <div style={{ maxWidth: 860, margin: '0 auto' }}>
 
-          {/* Header */}
           <div style={{ textAlign: 'center', marginBottom: 36 }}>
-            <Eyebrow center>Daily Salah</Eyebrow>
+            <Eyebrow center>{t('dailySalah')}</Eyebrow>
             <h1 className="font-cinzel" style={{ color: C.text, fontSize: 'clamp(1.75rem, 3.5vw, 2.4rem)', fontWeight: 800, lineHeight: 1.15, marginBottom: 8 }}>
-              Today&apos;s Prayer Times
+              {t('todayPrayers')}
             </h1>
             {!loading && (hijriDate || gregorianDate) && (
               <p style={{ color: C.muted, fontSize: '.87rem' }}>
@@ -140,7 +136,6 @@ export default function Home() {
             )}
           </div>
 
-          {/* Prayer cards */}
           {loading ? (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))', gap: 10 }}>
               {[...Array(6)].map((_, i) => (
@@ -180,7 +175,7 @@ export default function Home() {
                     </p>
                     {iqamah && (
                       <p style={{ fontSize: '.62rem', color: isActive ? 'rgba(255,255,255,.38)' : C.subtle, marginTop: 7, fontWeight: 500 }}>
-                        Iqamah {iqamah}
+                        {t('iqamah')} {iqamah}
                       </p>
                     )}
                   </div>
@@ -189,12 +184,11 @@ export default function Home() {
             </div>
           )}
 
-          {/* Live countdown */}
           {!loading && prayers.length > 0 && (
             <div style={{ marginTop: 28, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14 }}>
               <div style={{ flex: 1, height: 1, background: C.brdSoft, maxWidth: 72 }} />
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: '.72rem', color: C.subtle, fontWeight: 500 }}>Next:</span>
+                <span style={{ fontSize: '.72rem', color: C.subtle, fontWeight: 500 }}>{t('nextLabel')}:</span>
                 <span className="font-cinzel" style={{ fontSize: '.8rem', fontWeight: 700, color: C.muted }}>{cd.label}</span>
                 <span style={{ fontSize: '.72rem', color: C.subtle }}>in</span>
                 <span style={{ fontFamily: 'monospace', fontSize: '1.1rem', fontWeight: 900, color: C.deep, letterSpacing: '.04em' }}>
@@ -206,45 +200,39 @@ export default function Home() {
           )}
 
           <p style={{ textAlign: 'center', fontSize: '.67rem', color: C.subtle, marginTop: 14, letterSpacing: '.08em', fontWeight: 500 }}>
-            ISNA METHOD · MINNEAPOLIS, MN · TIMES UPDATE DAILY
+            {t('isnaBanner')}
           </p>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════
-          2. JUMU'AH BANNER
-      ══════════════════════════════════════════════════════════════════ */}
+      {/* ══ 2. JUMU'AH BANNER ══ */}
       <div style={{ background: C.deep, padding: '16px 20px' }}>
         <div style={{ maxWidth: 860, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap', gap: '8px 20px' }}>
-          <span className="font-cinzel" style={{ color: C.gold, fontSize: '.72rem', fontWeight: 700, letterSpacing: '.18em', textTransform: 'uppercase' }}>Jumu&apos;ah Prayer</span>
+          <span className="font-cinzel" style={{ color: C.gold, fontSize: '.72rem', fontWeight: 700, letterSpacing: '.18em', textTransform: 'uppercase' }}>{t('jumuahPrayerLabel')}</span>
           <span style={{ width: 1, height: 14, background: 'rgba(196,151,62,.35)', display: 'inline-block' }} />
-          <span style={{ color: 'rgba(255,255,255,.72)', fontSize: '.85rem' }}>Every Friday &middot; Khutbah 1:00 PM &middot; Salah 1:30 PM</span>
+          <span style={{ color: 'rgba(255,255,255,.72)', fontSize: '.85rem' }}>{t('jumuahBannerText')}</span>
           <span style={{ width: 1, height: 14, background: 'rgba(255,255,255,.12)', display: 'inline-block' }} />
-          <span style={{ color: 'rgba(255,255,255,.38)', fontSize: '.8rem' }}>2824 Lyndale Ave N &mdash; All welcome</span>
+          <span style={{ color: 'rgba(255,255,255,.38)', fontSize: '.8rem' }}>{t('jumuahAddressText')}</span>
         </div>
       </div>
 
-      {/* ══════════════════════════════════════════════════════════════════
-          3. MISSION & TRUST
-      ══════════════════════════════════════════════════════════════════ */}
+      {/* ══ 3. MISSION & TRUST ══ */}
       <section style={{ background: C.cream, padding: '88px 20px' }}>
         <div style={{ maxWidth: 960, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '60px 80px', alignItems: 'center' }}>
 
-          {/* Left — text */}
           <div>
-            <Eyebrow>About Us</Eyebrow>
+            <Eyebrow>{t('aboutUsLabel')}</Eyebrow>
             <h2 className="font-cinzel" style={{ color: C.text, fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', fontWeight: 800, lineHeight: 1.18, marginBottom: 20 }}>
-              Your Islamic Home<br />Since 2001
+              {t('homeHeroTitle')}
             </h2>
             <GoldRule />
             <p style={{ color: C.muted, lineHeight: 1.9, fontSize: '.95rem', marginBottom: 16 }}>
-              Umatul Islam Center is a mosque and Islamic community center serving Muslims of all backgrounds in Minneapolis and the greater Twin Cities area.
+              {t('homeDesc1')}
             </p>
             <p style={{ color: C.muted, lineHeight: 1.9, fontSize: '.95rem', marginBottom: 32 }}>
-              We provide a welcoming space for daily worship, Islamic education, youth development, and community support. Our doors are always open — Muslim and non-Muslim alike.
+              {t('homeDesc2')}
             </p>
 
-            {/* Credential pills */}
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
               {['501(c)(3) Nonprofit', 'Est. 2001', 'ISNA Method', 'Minneapolis, MN'].map(b => (
                 <span key={b} style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: '.7rem', fontWeight: 700, color: C.sage, background: '#edf5f0', padding: '5px 12px', borderRadius: 99, border: `1px solid ${C.border}`, letterSpacing: '.04em' }}>
@@ -255,7 +243,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right — stats + quote */}
           <div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', borderRadius: 18, overflow: 'hidden', border: `1px solid ${C.border}`, boxShadow: '0 4px 24px rgba(29,60,46,.06)', marginBottom: 18 }}>
               {TRUST.map(({ n, label }, i) => (
@@ -266,77 +253,68 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Testimonial */}
             <div style={{ padding: '22px 24px', background: C.white, borderRadius: 14, borderLeft: `3px solid ${C.gold}`, border: `1px solid ${C.brdSoft}` }}>
               <p style={{ fontSize: '.88rem', fontStyle: 'italic', color: C.muted, lineHeight: 1.8, marginBottom: 10 }}>
-                &ldquo;This masjid has been my family&apos;s spiritual home for over a decade. The warmth and knowledge here is unmatched in the Twin Cities.&rdquo;
+                {t('testimonialText')}
               </p>
-              <p style={{ fontSize: '.68rem', fontWeight: 700, color: C.sage, letterSpacing: '.07em', textTransform: 'uppercase' }}>— Community Member, Minneapolis</p>
+              <p style={{ fontSize: '.68rem', fontWeight: 700, color: C.sage, letterSpacing: '.07em', textTransform: 'uppercase' }}>{t('testimonialAuthor')}</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════
-          4. ANNOUNCEMENT
-      ══════════════════════════════════════════════════════════════════ */}
+      {/* ══ 4. ANNOUNCEMENT ══ */}
       <div style={{ background: '#fef9ec', borderTop: '1px solid #f0e0a8', borderBottom: '1px solid #f0e0a8', padding: '14px 20px' }}>
         <div style={{ maxWidth: 860, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
           <span style={{ width: 7, height: 7, borderRadius: '50%', background: C.gold, flexShrink: 0 }} />
           <p style={{ fontSize: '.85rem', color: '#6b4a00', fontWeight: 500 }}>
-            <strong>Announcement:</strong> Youth Halaqah registration open for Summer 2026. Limited spots available.{' '}
-            <Link href="/events" style={{ color: C.gold, fontWeight: 700, textDecoration: 'none' }}>Register →</Link>
+            <strong>{t('announcement')}:</strong> {t('announcementText')}{' '}
+            <Link href="/events" style={{ color: C.gold, fontWeight: 700, textDecoration: 'none' }}>{t('registerLink')}</Link>
           </p>
         </div>
       </div>
 
-      {/* ══════════════════════════════════════════════════════════════════
-          5. PROGRAMS
-      ══════════════════════════════════════════════════════════════════ */}
+      {/* ══ 5. PROGRAMS ══ */}
       <section style={{ background: C.sand, padding: '88px 20px' }}>
         <div style={{ maxWidth: 960, margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: 48 }}>
-            <Eyebrow center>What We Offer</Eyebrow>
+            <Eyebrow center>{t('whatWeOffer')}</Eyebrow>
             <h2 className="font-cinzel" style={{ color: C.text, fontSize: 'clamp(1.7rem, 3vw, 2.3rem)', fontWeight: 800, marginBottom: 12 }}>
-              Programs &amp; Services
+              {t('programsTitle')}
             </h2>
             <p style={{ color: C.muted, fontSize: '.92rem', maxWidth: 440, margin: '0 auto' }}>
-              Weekly programs for every member of the community — from children to elders.
+              {t('programsDesc')}
             </p>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 14 }}>
-            {PROGRAMS.map(({ title, desc, href }) => {
-              return (
-                <Link key={href + title} href={href}
-                  className="prog"
-                  style={{ display: 'flex', flexDirection: 'column', gap: 14, padding: '28px 24px', borderRadius: 16, background: C.white, border: `1.5px solid ${C.border}`, textDecoration: 'none', boxShadow: '0 2px 8px rgba(0,0,0,.04)', minHeight: 190 }}
-                >
-                  <h3 className="font-cinzel" style={{ fontWeight: 700, fontSize: '.9rem', color: C.text, lineHeight: 1.35 }}>{title}</h3>
-                  <p style={{ fontSize: '.82rem', color: C.muted, lineHeight: 1.75, flex: 1 }}>{desc}</p>
-                  <span style={{ fontSize: '.75rem', fontWeight: 700, color: C.sage, display: 'flex', alignItems: 'center', gap: 5 }}>
-                    Learn more
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  </span>
-                </Link>
-              )
-            })}
+            {PROGRAMS.map(({ title, desc, href }) => (
+              <Link key={href + title} href={href}
+                className="prog"
+                style={{ display: 'flex', flexDirection: 'column', gap: 14, padding: '28px 24px', borderRadius: 16, background: C.white, border: `1.5px solid ${C.border}`, textDecoration: 'none', boxShadow: '0 2px 8px rgba(0,0,0,.04)', minHeight: 190 }}
+              >
+                <h3 className="font-cinzel" style={{ fontWeight: 700, fontSize: '.9rem', color: C.text, lineHeight: 1.35 }}>{title}</h3>
+                <p style={{ fontSize: '.82rem', color: C.muted, lineHeight: 1.75, flex: 1 }}>{desc}</p>
+                <span style={{ fontSize: '.75rem', fontWeight: 700, color: C.sage, display: 'flex', alignItems: 'center', gap: 5 }}>
+                  {t('learnMore')}
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════
-          6. EVENTS
-      ══════════════════════════════════════════════════════════════════ */}
+      {/* ══ 6. EVENTS ══ */}
       <section style={{ background: C.cream, padding: '88px 20px' }}>
         <div style={{ maxWidth: 860, margin: '0 auto' }}>
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 36, flexWrap: 'wrap', gap: 12 }}>
             <div>
-              <Eyebrow>Community</Eyebrow>
-              <h2 className="font-cinzel" style={{ color: C.text, fontSize: 'clamp(1.7rem, 3vw, 2.3rem)', fontWeight: 800 }}>Upcoming Events</h2>
+              <Eyebrow>{t('communityLabel')}</Eyebrow>
+              <h2 className="font-cinzel" style={{ color: C.text, fontSize: 'clamp(1.7rem, 3vw, 2.3rem)', fontWeight: 800 }}>{t('upcomingEvents')}</h2>
             </div>
-            <Link href="/events" style={{ fontSize: '.8rem', fontWeight: 700, color: C.sage, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 5, padding: '8px 18px', border: `1.5px solid ${C.border}`, borderRadius: 99, background: C.white, transition: 'border-color .18s' }}>
-              View all events →
+            <Link href="/events" style={{ fontSize: '.8rem', fontWeight: 700, color: C.sage, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 5, padding: '8px 18px', border: `1.5px solid ${C.border}`, borderRadius: 99, background: C.white }}>
+              {t('viewAllEvents')}
             </Link>
           </div>
 
@@ -346,17 +324,12 @@ export default function Home() {
                 className="erow"
                 style={{ display: 'flex', alignItems: 'center', gap: 20, padding: '20px 22px', borderRadius: 14, background: C.white, border: `1.5px solid ${C.border}`, boxShadow: '0 1px 6px rgba(0,0,0,.04)', flexWrap: 'wrap', cursor: 'default' }}
               >
-                {/* Date stamp */}
                 <div style={{ textAlign: 'center', flexShrink: 0, width: 52 }}>
                   <p className="font-cinzel" style={{ fontWeight: 900, fontSize: '1.3rem', color: C.deep, lineHeight: 1 }}>{day}</p>
                   <div style={{ width: 20, height: 2, background: C.gold, borderRadius: 99, margin: '5px auto' }} />
                   <p style={{ fontSize: '.62rem', color: C.subtle, fontWeight: 600, letterSpacing: '.05em' }}>{date}</p>
                 </div>
-
-                {/* Divider */}
                 <div style={{ width: 1, height: 44, background: C.border, flexShrink: 0 }} />
-
-                {/* Details */}
                 <div style={{ flex: 1, minWidth: 180 }}>
                   <h3 className="font-cinzel" style={{ fontWeight: 700, fontSize: '.95rem', color: C.text, marginBottom: 6 }}>{title}</h3>
                   <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
@@ -374,8 +347,6 @@ export default function Home() {
                     ))}
                   </div>
                 </div>
-
-                {/* Tag */}
                 <span style={{ fontSize: '.62rem', fontWeight: 800, color: C.sage, background: '#edf5f0', padding: '4px 11px', borderRadius: 99, letterSpacing: '.08em', textTransform: 'uppercase', flexShrink: 0 }}>
                   {tag}
                 </span>
@@ -385,9 +356,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════
-          7. QURAN VERSE
-      ══════════════════════════════════════════════════════════════════ */}
+      {/* ══ 7. QURAN VERSE ══ */}
       <div style={{ background: C.sand, borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}`, padding: '64px 20px', textAlign: 'center' }}>
         <div style={{ maxWidth: 600, margin: '0 auto' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, marginBottom: 24 }}>
@@ -399,7 +368,7 @@ export default function Home() {
             إِنَّمَا الْمُؤْمِنُونَ إِخْوَةٌ
           </p>
           <p style={{ color: C.muted, fontSize: '1rem', fontStyle: 'italic', lineHeight: 1.7, marginBottom: 8 }}>
-            &ldquo;The believers are but brothers.&rdquo;
+            &ldquo;{t('verseIkhwa')}&rdquo;
           </p>
           <p className="font-cinzel" style={{ color: C.gold, fontSize: '.65rem', fontWeight: 700, letterSpacing: '.2em' }}>
             AL-HUJURAT 49:10
@@ -407,22 +376,20 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ══════════════════════════════════════════════════════════════════
-          8. LEADERSHIP / CREDIBILITY
-      ══════════════════════════════════════════════════════════════════ */}
+      {/* ══ 8. LEADERSHIP ══ */}
       <section style={{ background: C.cream, padding: '88px 20px' }}>
         <div style={{ maxWidth: 860, margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: 44 }}>
-            <Eyebrow center>Leadership</Eyebrow>
+            <Eyebrow center>{t('leadershipLabel')}</Eyebrow>
             <h2 className="font-cinzel" style={{ color: C.text, fontSize: 'clamp(1.7rem, 3vw, 2.3rem)', fontWeight: 800 }}>
-              Our Imam &amp; Leadership
+              {t('leadershipTitle')}
             </h2>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16, maxWidth: 740, margin: '0 auto' }}>
             {[
-              { initials: 'IM', role: 'Lead Imam',   title: 'Religious Director' },
-              { initials: 'BC', role: 'Board Chair',  title: 'Board of Directors' },
+              { initials: 'IM', role: t('leadImam'),   title: t('religDirector') },
+              { initials: 'BC', role: t('boardChair'),  title: t('boardOfDir')   },
             ].map(({ initials, role, title }) => (
               <div key={role} style={{ background: C.white, border: `1px solid ${C.border}`, borderRadius: 18, padding: '30px 28px', boxShadow: '0 2px 12px rgba(0,0,0,.05)', display: 'flex', gap: 20, alignItems: 'flex-start' }}>
                 <div style={{ width: 56, height: 56, borderRadius: '50%', background: C.deep, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, border: `2px solid ${C.border}` }}>
@@ -436,20 +403,16 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Ask Imam CTA */}
           <div style={{ textAlign: 'center', marginTop: 32 }}>
-            <Link href="/ask" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '12px 28px', borderRadius: 99, border: `1.5px solid ${C.border}`, color: C.sage, fontWeight: 700, fontSize: '.85rem', textDecoration: 'none', background: C.white, transition: 'border-color .2s' }}>
-              Ask the Imam a question →
+            <Link href="/ask" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '12px 28px', borderRadius: 99, border: `1.5px solid ${C.border}`, color: C.sage, fontWeight: 700, fontSize: '.85rem', textDecoration: 'none', background: C.white }}>
+              {t('askImamLink')}
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════
-          9. DONATION CTA — soft and respectful
-      ══════════════════════════════════════════════════════════════════ */}
+      {/* ══ 9. DONATION CTA ══ */}
       <section style={{ background: C.deep, padding: '80px 20px', position: 'relative', overflow: 'hidden' }}>
-        {/* Geometric background */}
         <div style={{ position: 'absolute', inset: 0, opacity: .035 }}>
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -463,14 +426,14 @@ export default function Home() {
         </div>
 
         <div style={{ maxWidth: 640, margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
-          <Eyebrow center>Support the Masjid</Eyebrow>
+          <Eyebrow center>{t('supportMasjidLabel')}</Eyebrow>
           <h2 className="font-cinzel" style={{ color: C.white, fontSize: 'clamp(1.9rem, 4vw, 2.8rem)', fontWeight: 800, lineHeight: 1.2, marginBottom: 16 }}>
-            Sustain Our Community
+            {t('sustainTitle')}
           </h2>
           <p style={{ color: 'rgba(255,255,255,.68)', fontSize: '.95rem', lineHeight: 1.9, maxWidth: 480, margin: '0 auto 36px' }}>
-            Your donation keeps the masjid running and funds programs that serve hundreds of families.
-            Even a small contribution is a{' '}
-            <em style={{ color: C.goldLt, fontStyle: 'normal', fontWeight: 600 }}>sadaqah jariyah</em> — an ongoing act of worship.
+            {t('donationCtaDesc')}{' '}
+            <em style={{ color: C.goldLt, fontStyle: 'normal', fontWeight: 600 }}>{t('sadaqahJariyah')}</em>{' '}
+            {t('donationCtaDesc2')}
           </p>
 
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 36 }}>
@@ -478,25 +441,23 @@ export default function Home() {
               className="donate-btn"
               style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 36px', borderRadius: 12, background: C.gold, color: C.deep, fontFamily: 'var(--font-cinzel, Georgia, serif)', fontWeight: 800, fontSize: '.9rem', textDecoration: 'none', letterSpacing: '.04em', boxShadow: `0 4px 20px rgba(196,151,62,.38)` }}
             >
-              Donate Now
+              {t('donateNow')}
             </Link>
             <Link href="/ask"
               className="ghost"
               style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 36px', borderRadius: 12, background: 'rgba(255,255,255,.07)', color: 'rgba(255,255,255,.82)', fontWeight: 600, fontSize: '.9rem', textDecoration: 'none', border: '1.5px solid rgba(255,255,255,.28)' }}
             >
-              Contact Us
+              {t('contactUs')}
             </Link>
           </div>
 
-          {/* Trust row */}
           <div style={{ display: 'flex', justifyContent: 'center', gap: '16px 32px', flexWrap: 'wrap' }}>
-            {['SSL Encrypted', 'Tax Deductible', '100% to Masjid'].map(item => (
+            {[t('sslEncrypted'), t('taxDeductible'), t('allToMasjid')].map(item => (
               <span key={item} style={{ fontSize: '.78rem', color: 'rgba(255,255,255,.5)', fontWeight: 500 }}>{item}</span>
             ))}
           </div>
         </div>
       </section>
-
     </div>
   )
 }

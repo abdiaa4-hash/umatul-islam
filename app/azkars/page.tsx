@@ -5,10 +5,10 @@ import { useLang } from '../contexts/LanguageContext'
 
 type Tab = 'morning' | 'evening' | 'after'
 
-const TABS: { key: Tab; en: string; ar: string; time: string }[] = [
-  { key: 'morning', en: 'Morning',      ar: 'الصباح',     time: 'After Fajr'  },
-  { key: 'evening', en: 'Evening',      ar: 'المساء',     time: 'After Asr'   },
-  { key: 'after',   en: 'After Prayer', ar: 'بعد الصلاة', time: 'Every Salah' },
+const TABS: { key: Tab; en: string; ar: string; so: string }[] = [
+  { key: 'morning', en: 'Morning',      ar: 'الصباح',     so: 'Subaxda'         },
+  { key: 'evening', en: 'Evening',      ar: 'المساء',     so: 'Fiidkii'         },
+  { key: 'after',   en: 'After Prayer', ar: 'بعد الصلاة', so: 'Ka dib Salaadda' },
 ]
 
 const AZKARS: Record<Tab, { id: number; arabic: string; translit: string; en: string; count: number; source: string; virtue?: string }[]> = {
@@ -109,7 +109,7 @@ const AZKARS: Record<Tab, { id: number; arabic: string; translit: string; en: st
 }
 
 export default function AzkarsPage() {
-  const { lang, isRTL } = useLang()
+  const { lang, isRTL, t } = useLang()
   const [active, setActive] = useState<Tab>('morning')
   const [counts, setCounts] = useState<Record<number, number>>({})
   const [expanded, setExpanded] = useState<Record<number, boolean>>({})
@@ -131,7 +131,7 @@ export default function AzkarsPage() {
   }
 
   const tabLabel = (tab: typeof TABS[0]) =>
-    lang === 'ar' ? tab.ar : tab.en
+    lang === 'ar' ? tab.ar : lang === 'so' ? tab.so : tab.en
 
   const getText = (a: typeof AZKARS.morning[0]) => a.en
 
@@ -160,10 +160,10 @@ export default function AzkarsPage() {
 
         <div className="relative z-10 text-center px-5 pb-8">
           <p className="text-xs font-bold uppercase tracking-[.22em] mb-3" style={{ color: 'rgba(201,168,76,.6)' }}>
-            Umatul Islam Center
+            {t('masjidName')}
           </p>
           <h1 className="font-cinzel font-black text-white mb-4" style={{ fontSize: 'clamp(1.8rem,6vw,2.8rem)' }}>
-            {lang === 'ar' ? 'الأذكار اليومية' : 'Daily Azkars'}
+            {t('azkarsTitle')}
           </h1>
 
           {/* Quran verse */}
@@ -172,18 +172,18 @@ export default function AzkarsPage() {
               أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ
             </p>
             <p className="text-xs" style={{ color: 'rgba(255,255,255,.4)' }}>
-              &ldquo;Verily in the remembrance of Allah do hearts find rest.&rdquo; — Quran 13:28
+              {t('verseRemember')}
             </p>
           </div>
 
           {/* Progress summary */}
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="px-4 py-2 rounded-full text-xs font-bold" style={{ background: 'rgba(255,255,255,.06)', color: 'rgba(255,255,255,.5)', border: '1px solid rgba(255,255,255,.08)' }}>
-              {totalComplete} / {totalCount} complete
+              {totalComplete} / {totalCount} {t('completeLabel')}
             </div>
             {allDone && (
               <div className="px-4 py-2 rounded-full text-xs font-bold" style={{ background: 'rgba(201,168,76,.15)', color: '#e8c97a', border: '1px solid rgba(201,168,76,.3)' }}>
-                Session complete — JazakAllah Khair
+                {t('sessionComplete')}
               </div>
             )}
           </div>
@@ -218,9 +218,9 @@ export default function AzkarsPage() {
                   {tabLabel(tab)}
                 </span>
                 <span style={{ fontSize: '.6rem', color: isActive ? 'rgba(201,168,76,.55)' : 'rgba(255,255,255,.2)' }}>
-                  {tab.time}
+                  {tab.key === 'morning' ? t('afterFajr') : tab.key === 'evening' ? t('afterAsr') : t('everySalah')}
                 </span>
-                {tabDone && <span style={{ fontSize: '.55rem', color: '#52b788', fontWeight: 700 }}>Done</span>}
+                {tabDone && <span style={{ fontSize: '.55rem', color: '#52b788', fontWeight: 700 }}>{t('doneLabel')}</span>}
               </button>
             )
           })}
@@ -267,7 +267,7 @@ export default function AzkarsPage() {
                   {done && (
                     <span style={{ fontSize: '.65rem', fontWeight: 800, color: '#52b788', letterSpacing: '.1em', display: 'flex', alignItems: 'center', gap: 4 }}>
                       <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#52b788" strokeWidth="3" strokeLinecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-                      COMPLETE
+                      {t('completeUpper')}
                     </span>
                   )}
                 </div>
@@ -342,7 +342,7 @@ export default function AzkarsPage() {
                         style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 5, padding: 0 }}
                       >
                         <span style={{ fontSize: '.65rem', fontWeight: 700, color: '#c9a84c', letterSpacing: '.1em', textTransform: 'uppercase' }}>
-                          {isExpanded ? '▲' : '▼'} Virtue
+                          {isExpanded ? '▲' : '▼'} {t('virtueLabel')}
                         </span>
                       </button>
                       {isExpanded && (
@@ -436,7 +436,7 @@ export default function AzkarsPage() {
             وَاذْكُرُوا اللَّهَ كَثِيرًا لَعَلَّكُمْ تُفْلِحُونَ
           </p>
           <p style={{ color: 'rgba(255,255,255,.2)', fontSize: '.7rem', marginTop: 6 }}>
-            "Remember Allah often so that you may succeed." — Quran 8:45
+            {t('verseRememberBottom')}
           </p>
         </div>
       </section>

@@ -12,75 +12,74 @@ const EVENTS = [
     id: 1, tag: 'weekly' as Tag, featured: true,
     img: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?w=1400&q=90&auto=format&fit=crop',
     badgeLabel: 'Weekly', badgeColor: '#c9a84c', badgeText: '#0f2418',
-    titleEn: "Friday Jumu'ah Prayer",   titleAr: 'صلاة الجمعة',
-    dateEn: 'Every Friday',             dateAr: 'كل جمعة',
+    titleEn: "Friday Jumu'ah Prayer",   titleAr: 'صلاة الجمعة',         titleSo: "Salaadda Jumu'ah",
+    dateEn: 'Every Friday',             dateAr: 'كل جمعة',              dateSo: 'Jimce kasta',
     time: '1:00 PM – 2:00 PM',
-    locEn: 'Main Prayer Hall',          locAr: 'قاعة الصلاة الرئيسية',
+    locEn: 'Main Prayer Hall',          locAr: 'قاعة الصلاة الرئيسية',  locSo: 'Qolka Salaadda Weyn',
     descEn: "Join us every Friday for Jumu'ah. The Imam delivers the Khutbah in English, followed by congregational prayer. All are welcome — no registration required.",
     descAr: 'انضم إلينا كل جمعة. يلقي الإمام الخطبة بالإنجليزية، تليها صلاة الجمعة مفتوحة للجميع.',
+    descSo: "Nala soo biir Jimce kasta si aad u tukato Jumu'ah. Imaamku wuxuu jeediyaa Khutbada, ka dib salaadda jamiciga. Dhammaan baa soo dhawaynta — diiwaangelinta looma baahna.",
   },
   {
     id: 2, tag: 'weekly' as Tag, featured: false,
     img: 'https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=800&q=85&auto=format&fit=crop',
     badgeLabel: 'Weekly', badgeColor: '#1e4d33', badgeText: '#c9a84c',
-    titleEn: 'Sunday Quran Circle',     titleAr: 'حلقة القرآن الكريم',
-    dateEn: 'Every Sunday',             dateAr: 'كل أحد',
+    titleEn: 'Sunday Quran Circle',     titleAr: 'حلقة القرآن الكريم',   titleSo: 'Xalaqada Quraanka Axadda',
+    dateEn: 'Every Sunday',             dateAr: 'كل أحد',               dateSo: 'Axad kasta',
     time: '10:00 AM – 12:00 PM',
-    locEn: 'Education Wing, Room 3',    locAr: 'جناح التعليم، غرفة ٣',
+    locEn: 'Education Wing, Room 3',    locAr: 'جناح التعليم، غرفة ٣',   locSo: 'Qaybta Waxbarashada, Qol 3',
     descEn: 'Weekly Quran recitation and Tajweed for all levels. Beginners warmly welcomed. Free childcare provided.',
     descAr: 'درس أسبوعي في تلاوة القرآن والتجويد. المبتدئون موضع ترحيب. رعاية الأطفال مجانية.',
+    descSo: 'Akhrinta Quraanka iyo Tajweed todobaadlaha ah oo loogu talagalay dhammaan heerarka. Kuwa bilaabaya baa si kulul loo soo dhawaynayaa. Daryeelka carruurta waa bilaash.',
   },
   {
     id: 3, tag: 'upcoming' as Tag, featured: false,
     img: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?w=800&q=85&auto=format&fit=crop',
     badgeLabel: 'Apr 26', badgeColor: '#0f2418', badgeText: '#e8c97a',
-    titleEn: 'Islamic History Lecture', titleAr: 'محاضرة التاريخ الإسلامي',
-    dateEn: 'April 26, 2026',           dateAr: '٢٦ أبريل ٢٠٢٦',
+    titleEn: 'Islamic History Lecture', titleAr: 'محاضرة التاريخ الإسلامي', titleSo: 'Muhadaaro Taariikhda Islaamiga',
+    dateEn: 'April 26, 2026',           dateAr: '٢٦ أبريل ٢٠٢٦',          dateSo: 'Abriil 26, 2026',
     time: '6:00 PM – 8:00 PM',
-    locEn: 'Main Hall',                 locAr: 'القاعة الرئيسية',
+    locEn: 'Main Hall',                 locAr: 'القاعة الرئيسية',           locSo: 'Xarunta Weyn',
     descEn: 'A special lecture on the history of Islam in America. Open to all ages.',
     descAr: 'محاضرة خاصة عن تاريخ الإسلام في أمريكا. مفتوحة لجميع الأعمار.',
+    descSo: 'Muhadaaro gaara oo ku saabsan taariikhda Islaamka ee Ameerika. Furan dhammaan da\'yada.',
   },
   {
     id: 4, tag: 'upcoming' as Tag, featured: false,
     img: 'https://images.unsplash.com/photo-1604881988758-f76ad2f7aac1?w=800&q=85&auto=format&fit=crop',
     badgeLabel: 'May 3', badgeColor: '#0f2418', badgeText: '#e8c97a',
-    titleEn: 'Youth Halaqah',           titleAr: 'حلقة الشباب',
-    dateEn: 'May 3, 2026',             dateAr: '٣ مايو ٢٠٢٦',
+    titleEn: 'Youth Halaqah',           titleAr: 'حلقة الشباب',             titleSo: 'Xalaqada Dhalinyarada',
+    dateEn: 'May 3, 2026',             dateAr: '٣ مايو ٢٠٢٦',             dateSo: 'Maajo 3, 2026',
     time: '6:00 PM – 8:00 PM',
-    locEn: 'Youth Room',               locAr: 'غرفة الشباب',
+    locEn: 'Youth Room',               locAr: 'غرفة الشباب',               locSo: 'Qolka Dhalinyarada',
     descEn: 'A gathering for Muslim youth ages 13–25. Discussion on faith, identity, and thriving as a Muslim in America.',
     descAr: 'لقاء للشباب المسلم من ١٣ إلى ٢٥ سنة. نقاش حول الإيمان والهوية.',
+    descSo: 'Isugu imaad dhalinyarada Muslimka jirka 13–25. Waxqabad ku saabsan imaan, aqoonsi, iyo guulaystay ahaan Muslim Ameerika.',
   },
   {
     id: 5, tag: 'special' as Tag, featured: false,
     img: 'https://images.unsplash.com/photo-1585036156171-384164a8c675?w=800&q=85&auto=format&fit=crop',
     badgeLabel: 'May 10', badgeColor: '#7a5200', badgeText: '#fdf6e3',
-    titleEn: 'Parenting Workshop',      titleAr: 'ورشة التربية',
-    dateEn: 'May 10, 2026',            dateAr: '١٠ مايو ٢٠٢٦',
+    titleEn: 'Parenting Workshop',      titleAr: 'ورشة التربية',            titleSo: 'Tababarka Waalidnimada',
+    dateEn: 'May 10, 2026',            dateAr: '١٠ مايو ٢٠٢٦',            dateSo: 'Maajo 10, 2026',
     time: '2:00 PM – 5:00 PM',
-    locEn: 'Conference Room',          locAr: 'قاعة المؤتمرات',
+    locEn: 'Conference Room',          locAr: 'قاعة المؤتمرات',            locSo: 'Qolka Shirarka',
     descEn: 'Practical tools for raising children in the West with strong Islamic values. Free childcare. All families welcome.',
     descAr: 'أدوات عملية لتربية الأبناء في الغرب بقيم إسلامية. رعاية مجانية.',
+    descSo: 'Qalab waxtar leh oo loogu talagalay barbaarinta carruurta Galbeedka qiyamka Islaamiga. Daryeel bilaash ah. Dhammaan qoysaska baa soo dhawaynta.',
   },
   {
     id: 6, tag: 'special' as Tag, featured: false,
     img: 'https://images.unsplash.com/photo-1466442929976-97f336a657be?w=800&q=85&auto=format&fit=crop',
     badgeLabel: 'May 17', badgeColor: '#7a5200', badgeText: '#fdf6e3',
-    titleEn: 'Community Iftar Dinner',  titleAr: 'إفطار جماعي',
-    dateEn: 'May 17, 2026',            dateAr: '١٧ مايو ٢٠٢٦',
+    titleEn: 'Community Iftar Dinner',  titleAr: 'إفطار جماعي',             titleSo: 'Cashada Bulsho ee Iftaarka',
+    dateEn: 'May 17, 2026',            dateAr: '١٧ مايو ٢٠٢٦',            dateSo: 'Maajo 17, 2026',
     time: '7:30 PM – 9:30 PM',
-    locEn: 'Community Hall',           locAr: 'قاعة المجتمع',
+    locEn: 'Community Hall',           locAr: 'قاعة المجتمع',              locSo: 'Xarunta Bulshada',
     descEn: 'Share a meal and strengthen community bonds. Open to Muslims and non-Muslims alike. Bring your neighbors.',
     descAr: 'تناول الطعام وتعزيز روابط المجتمع. مفتوح للجميع.',
+    descSo: 'Raashad wadaag oo xoojiyo xidhiidhka bulshada. Furan Muslimiin iyo aan Muslimiin ahayn labadaba. Keena deriskiinna.',
   },
-]
-
-const TABS: { key: Tag; label: string }[] = [
-  { key: 'all',      label: 'All Events' },
-  { key: 'weekly',   label: 'Weekly'     },
-  { key: 'upcoming', label: 'Upcoming'   },
-  { key: 'special',  label: 'Special'    },
 ]
 
 /* ─── SVG icons ────────────────────────────────────────────────────────── */
@@ -90,14 +89,21 @@ const PinIcon   = () => <svg width="12" height="12" viewBox="0 0 24 24" fill="no
 
 /* ══════════════════════════════════════════════════════════════════════ */
 export default function EventsPage() {
-  const { lang, isRTL } = useLang()
+  const { lang, isRTL, t } = useLang()
   const [activeTab, setActiveTab] = useState<Tag>('all')
 
+  const TABS: { key: Tag; label: string }[] = [
+    { key: 'all',      label: t('tabAll')      },
+    { key: 'weekly',   label: t('tabWeekly')   },
+    { key: 'upcoming', label: t('tabUpcoming') },
+    { key: 'special',  label: t('tabSpecial')  },
+  ]
+
   const g = (e: typeof EVENTS[0]) => ({
-    title: lang === 'ar' ? e.titleAr : e.titleEn,
-    date:  lang === 'ar' ? e.dateAr  : e.dateEn,
-    loc:   lang === 'ar' ? e.locAr   : e.locEn,
-    desc:  lang === 'ar' ? e.descAr  : e.descEn,
+    title: lang === 'ar' ? e.titleAr : lang === 'so' ? e.titleSo : e.titleEn,
+    date:  lang === 'ar' ? e.dateAr  : lang === 'so' ? e.dateSo  : e.dateEn,
+    loc:   lang === 'ar' ? e.locAr   : lang === 'so' ? e.locSo   : e.locEn,
+    desc:  lang === 'ar' ? e.descAr  : lang === 'so' ? e.descSo  : e.descEn,
   })
 
   const featured = EVENTS[0]
@@ -128,13 +134,13 @@ export default function EventsPage() {
 
         <div className={`${isRTL ? 'rtl' : ''}`} style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', textAlign: 'center', padding: '0 20px 60px' }}>
           <p style={{ color: 'rgba(201,168,76,.8)', fontSize: '.68rem', fontWeight: 700, letterSpacing: '.25em', textTransform: 'uppercase', marginBottom: 14 }}>
-            Umatul Islam Center · Minneapolis
+            {t('eventsHeroEyebrow')}
           </p>
           <h1 id="events-h1" className="font-cinzel" style={{ color: '#fff', fontSize: 'clamp(2.5rem, 7vw, 4.5rem)', fontWeight: 900, lineHeight: 1.05, textShadow: '0 2px 30px rgba(0,0,0,.4)', marginBottom: 14 }}>
-            {lang === 'ar' ? 'الفعاليات القادمة' : 'Community Events'}
+            {t('eventsHeroTitle')}
           </h1>
           <p style={{ color: 'rgba(255,255,255,.55)', fontSize: '1rem', maxWidth: 440 }}>
-            {lang === 'ar' ? 'انضم إلينا في هذه الفعاليات المجتمعية' : 'Gather, learn, and grow together in faith and community'}
+            {t('eventsHeroSub')}
           </p>
         </div>
       </section>
@@ -167,7 +173,7 @@ export default function EventsPage() {
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
                   <div style={{ width: 28, height: 2, background: '#c9a84c', borderRadius: 99 }} />
-                  <span style={{ color: 'rgba(201,168,76,.7)', fontSize: '.65rem', fontWeight: 700, letterSpacing: '.2em', textTransform: 'uppercase' }}>Featured</span>
+                  <span style={{ color: 'rgba(201,168,76,.7)', fontSize: '.65rem', fontWeight: 700, letterSpacing: '.2em', textTransform: 'uppercase' }}>{t('featuredLabel')}</span>
                 </div>
                 <h2 className="font-cinzel" style={{ color: '#fff', fontSize: 'clamp(1.5rem, 2.5vw, 2.1rem)', fontWeight: 900, lineHeight: 1.15, marginBottom: 16 }}>
                   {fd.title}
@@ -185,7 +191,7 @@ export default function EventsPage() {
                   ))}
                 </div>
                 <div style={{ height: 1, background: 'rgba(201,168,76,.15)', marginBottom: 18 }} />
-                <p style={{ color: '#c9a84c', fontSize: '.85rem', fontWeight: 600 }}>All are welcome · No registration required</p>
+                <p style={{ color: '#c9a84c', fontSize: '.85rem', fontWeight: 600 }}>{t('allWelcome')}</p>
               </div>
             </div>
           </div>
@@ -216,15 +222,15 @@ export default function EventsPage() {
             </button>
           ))}
           <span style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', fontSize: '.8rem', color: 'var(--subtle)', fontWeight: 500 }}>
-            {filtered.length} event{filtered.length !== 1 ? 's' : ''}
+            {filtered.length} {filtered.length !== 1 ? t('tabAll').toLowerCase() : t('tabSpecial').toLowerCase()}
           </span>
         </div>
 
         {/* ══════ EVENT GRID ══════ */}
         {filtered.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--subtle)' }}>
-            <p className="font-cinzel" style={{ fontSize: '1.1rem', marginBottom: 8 }}>No events in this category</p>
-            <p style={{ fontSize: '.85rem' }}>Check back soon or view all events.</p>
+            <p className="font-cinzel" style={{ fontSize: '1.1rem', marginBottom: 8 }}>{t('noEventsTitle')}</p>
+            <p style={{ fontSize: '.85rem' }}>{t('noEventsDesc')}</p>
           </div>
         ) : (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))', gap: 20 }}>
@@ -254,7 +260,7 @@ export default function EventsPage() {
                     <p style={{ fontSize: '.83rem', color: 'var(--muted)', lineHeight: 1.7, flex: 1 }}>{desc}</p>
                     <div style={{ height: 1, background: 'var(--border)', marginTop: 10 }} />
                     <button type="button" style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--g-600)', fontWeight: 700, fontSize: '.8rem', background: 'none', border: 'none', cursor: 'pointer', padding: 0, marginTop: 4 }}>
-                      Learn more
+                      {t('learnMore')}
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </button>
                   </div>
@@ -277,7 +283,7 @@ export default function EventsPage() {
               وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ
             </p>
             <p style={{ color: 'rgba(255,255,255,.45)', fontSize: '.9rem', fontStyle: 'italic' }}>
-              &ldquo;Help one another in righteousness and piety.&rdquo; — Quran 5:2
+              {t('verseHelp')}
             </p>
           </div>
         </div>
