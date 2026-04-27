@@ -79,14 +79,9 @@ export default function AskPage() {
         headers: { Accept: 'application/json' },
         body,
       })
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}))
-        setErr(`Error ${res.status}: ${data?.error ?? 'Submission failed'}`)
-        setBusy(false)
-        return
-      }
-    } catch (e: unknown) {
-      setErr(`Network error: ${e instanceof Error ? e.message : 'Unknown'}`)
+      if (!res.ok) throw new Error('Formspree error')
+    } catch {
+      setErr('Failed to send. Please try again.')
       setBusy(false)
       return
     }
