@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import { useLang } from '../contexts/LanguageContext'
 
 type Tab = 'morning' | 'evening' | 'after'
@@ -113,6 +113,27 @@ export default function AzkarsPage() {
   const [active, setActive] = useState<Tab>('morning')
   const [counts, setCounts] = useState<Record<number, number>>({})
   const [expanded, setExpanded] = useState<Record<number, boolean>>({})
+  const [speaking, setSpeaking] = useState<number | null>(null)
+  const utterRef = useRef<SpeechSynthesisUtterance | null>(null)
+
+  useEffect(() => () => { window.speechSynthesis?.cancel() }, [])
+
+  const speak = useCallback((id: number, arabic: string) => {
+    if (speaking === id) {
+      window.speechSynthesis.cancel()
+      setSpeaking(null)
+      return
+    }
+    window.speechSynthesis.cancel()
+    const utter = new SpeechSynthesisUtterance(arabic)
+    utter.lang = 'ar'
+    utter.rate = 0.8
+    utter.onend = () => setSpeaking(null)
+    utter.onerror = () => setSpeaking(null)
+    utterRef.current = utter
+    setSpeaking(id)
+    window.speechSynthesis.speak(utter)
+  }, [speaking])
 
   const tap = useCallback((id: number, max: number) => {
     setCounts(prev => {
@@ -259,17 +280,41 @@ export default function AzkarsPage() {
                     : 'linear-gradient(135deg, #101f16, #152a1e)',
                 }}
               >
-                {/* Number + completion indicator */}
+                {/* Number + listen button + completion indicator */}
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 16px 0' }}>
                   <span style={{ fontSize: '.65rem', fontWeight: 700, color: 'rgba(255,255,255,.2)', letterSpacing: '.1em' }}>
                     {String(idx + 1).padStart(2, '0')}
                   </span>
-                  {done && (
-                    <span style={{ fontSize: '.65rem', fontWeight: 800, color: '#52b788', letterSpacing: '.1em', display: 'flex', alignItems: 'center', gap: 4 }}>
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#52b788" strokeWidth="3" strokeLinecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-                      {t('completeUpper')}
-                    </span>
-                  )}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    {/* Listen / audio button */}
+                    <button
+                      type="button"
+                      onClick={() => speak(az.id, az.arabic)}
+                      aria-label={speaking === az.id ? 'Stop audio' : 'Listen to Arabic pronunciation'}
+                      style={{
+                        display: 'flex', alignItems: 'center', gap: 5,
+                        padding: '4px 10px', borderRadius: 99,
+                        border: speaking === az.id ? '1px solid rgba(201,168,76,.6)' : '1px solid rgba(255,255,255,.12)',
+                        background: speaking === az.id ? 'rgba(201,168,76,.15)' : 'rgba(255,255,255,.05)',
+                        cursor: 'pointer', transition: 'all .15s',
+                      }}
+                    >
+                      {speaking === az.id ? (
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="#c9a84c" aria-hidden="true"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                      ) : (
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.4)" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+                      )}
+                      <span style={{ fontSize: '.6rem', fontWeight: 700, color: speaking === az.id ? '#c9a84c' : 'rgba(255,255,255,.3)', letterSpacing: '.06em' }}>
+                        {speaking === az.id ? 'STOP' : 'LISTEN'}
+                      </span>
+                    </button>
+                    {done && (
+                      <span style={{ fontSize: '.65rem', fontWeight: 800, color: '#52b788', letterSpacing: '.1em', display: 'flex', alignItems: 'center', gap: 4 }}>
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#52b788" strokeWidth="3" strokeLinecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        {t('completeUpper')}
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 {/* Arabic — tap to count */}
