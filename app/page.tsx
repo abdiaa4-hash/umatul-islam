@@ -388,15 +388,16 @@ export default function Home() {
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16, maxWidth: 740, margin: '0 auto' }}>
             {[
-              { initials: 'IM', role: t('leadImam'),   title: t('religDirector') },
-              { initials: 'BC', role: t('boardChair'),  title: t('boardOfDir')   },
-            ].map(({ initials, role, title }) => (
+              { initials: 'AM', name: 'Abdirahman Mohamed', role: t('leadImam'),   title: t('religDirector') },
+              { initials: 'SA', name: 'Suleiman Ali',       role: t('boardChair'),  title: t('boardOfDir')   },
+            ].map(({ initials, name, role, title }) => (
               <div key={role} style={{ background: C.white, border: `1px solid ${C.border}`, borderRadius: 18, padding: '30px 28px', boxShadow: '0 2px 12px rgba(0,0,0,.05)', display: 'flex', gap: 20, alignItems: 'flex-start' }}>
                 <div style={{ width: 56, height: 56, borderRadius: '50%', background: C.deep, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, border: `2px solid ${C.border}` }}>
                   <span className="font-cinzel" style={{ color: C.goldLt, fontSize: '1rem', fontWeight: 900 }}>{initials}</span>
                 </div>
                 <div>
-                  <p className="font-cinzel" style={{ fontWeight: 800, fontSize: '.95rem', color: C.text, marginBottom: 2 }}>{role}</p>
+                  <p className="font-cinzel" style={{ fontWeight: 800, fontSize: '.95rem', color: C.text, marginBottom: 2 }}>{name}</p>
+                  <p style={{ color: C.gold, fontSize: '.65rem', fontWeight: 700, letterSpacing: '.12em', textTransform: 'uppercase', marginBottom: 2 }}>{role}</p>
                   <p style={{ color: C.gold, fontSize: '.65rem', fontWeight: 700, letterSpacing: '.12em', textTransform: 'uppercase' }}>{title}</p>
                 </div>
               </div>
