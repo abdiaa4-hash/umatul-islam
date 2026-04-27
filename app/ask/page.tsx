@@ -68,16 +68,16 @@ export default function AskPage() {
     setEmailErr('')
     setBusy(true)
     try {
+      const body = new FormData()
+      body.append('question', question)
+      body.append('category', cat)
+      body.append('name', anon ? 'Anonymous' : name || 'Not provided')
+      body.append('email', email || 'Not provided')
+      body.append('isAnonymous', String(anon))
       const res = await fetch('https://formspree.io/f/meevwzdq', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          question,
-          category: cat,
-          name: anon ? 'Anonymous' : name || 'Not provided',
-          email: email || 'Not provided',
-          isAnonymous: anon,
-        }),
+        headers: { Accept: 'application/json' },
+        body,
       })
       if (!res.ok) throw new Error('Formspree error')
     } catch {
