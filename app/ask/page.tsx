@@ -63,6 +63,7 @@ export default function AskPage() {
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!question.trim()) { setErr(t('questionLabel') + ' required'); return }
+    if (!anon && !name.trim()) { setErr(t('nameLabel') + ' required'); return }
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setEmailErr(t('emailError')); return }
     setErr('')
     setEmailErr('')
@@ -71,8 +72,8 @@ export default function AskPage() {
       const body = new FormData()
       body.append('question', question)
       body.append('category', cat)
-      body.append('name', anon ? 'Anonymous' : name || 'Not provided')
-      body.append('email', email || 'Not provided')
+      body.append('name', anon ? 'Anonymous' : name)
+      if (email) body.append('email', email)
       body.append('isAnonymous', String(anon))
       const res = await fetch('https://formspree.io/f/meevwzdq', {
         method: 'POST',
