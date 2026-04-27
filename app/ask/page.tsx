@@ -67,7 +67,24 @@ export default function AskPage() {
     setErr('')
     setEmailErr('')
     setBusy(true)
-    await new Promise(r => setTimeout(r, 1400))
+    try {
+      const res = await fetch('https://formspree.io/f/meevwzdq', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          question,
+          category: cat,
+          name: anon ? 'Anonymous' : name || 'Not provided',
+          email: email || 'Not provided',
+          isAnonymous: anon,
+        }),
+      })
+      if (!res.ok) throw new Error('Formspree error')
+    } catch {
+      setErr('Failed to send. Please try again.')
+      setBusy(false)
+      return
+    }
     setBusy(false)
     setDone(true)
   }
