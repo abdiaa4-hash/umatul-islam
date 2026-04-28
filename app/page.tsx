@@ -90,7 +90,7 @@ export default function Home() {
 
   const TRUST = [
     { n: '2001',      label: t('statEstablished')  },
-    { n: '501(c)(3)', label: t('statNonprofit')     },
+    { n: 'All Welcome', label: t('statNonprofit')     },
     { n: 'ISNA',      label: t('statMethod')        },
     { n: '12+',       label: t('statPrograms')      },
   ]
