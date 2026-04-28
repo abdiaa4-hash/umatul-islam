@@ -234,7 +234,7 @@ export default function Home() {
             </p>
 
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-              {['501(c)(3) Nonprofit', 'Est. 2001', 'ISNA Method', 'Minneapolis, MN'].map(b => (
+              {['Est. 2001', 'ISNA Method', 'Minneapolis, MN'].map(b => (
                 <span key={b} style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: '.7rem', fontWeight: 700, color: C.sage, background: '#edf5f0', padding: '5px 12px', borderRadius: 99, border: `1px solid ${C.border}`, letterSpacing: '.04em' }}>
                   <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
                   {b}
@@ -452,11 +452,6 @@ export default function Home() {
             </Link>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '16px 32px', flexWrap: 'wrap' }}>
-            {[t('sslEncrypted'), t('taxDeductible'), t('allToMasjid')].map(item => (
-              <span key={item} style={{ fontSize: '.78rem', color: 'rgba(255,255,255,.5)', fontWeight: 500 }}>{item}</span>
-            ))}
-          </div>
         </div>
       </section>
     </div>
