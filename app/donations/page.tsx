@@ -89,7 +89,7 @@ export default function DonationsPage() {
   const payUrl = (m: Method): string => {
     const amt = amount ?? 0
     if (m === 'stripe')  return CONFIG.stripeLink
-    if (m === 'paypal')  return amt > 0 ? `${CONFIG.paypalMe}/${amt}USD` : CONFIG.paypalMe
+    if (m === 'paypal')  return amt > 0 ? `${CONFIG.paypalMe}&amount=${amt}` : CONFIG.paypalMe
     return ''
   }
 
