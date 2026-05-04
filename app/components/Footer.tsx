@@ -39,14 +39,14 @@ export default function Footer() {
   ]
 
   return (
-    <footer aria-label="Site footer" style={{ background: 'var(--g-950)', borderTop: '1px solid rgba(201,168,76,.18)', color: 'rgba(255,255,255,.55)', fontSize: '0.85rem' }}>
+    <footer aria-label="Site footer" style={{ background: 'var(--g-800)', borderTop: '1px solid rgba(201,168,76,.25)', color: 'rgba(255,255,255,.75)', fontSize: '0.85rem' }}>
       <style>{`
-        .footer-link { color: rgba(255,255,255,.45); text-decoration: none; font-size: 0.85rem; transition: color .15s; }
+        .footer-link { color: rgba(255,255,255,.7); text-decoration: none; font-size: 0.85rem; transition: color .15s; }
         .footer-link:hover { color: var(--gold); }
-        .footer-social { width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); color:rgba(255,255,255,.4); transition:all .2s; text-decoration:none; }
-        .footer-social:hover { background:rgba(201,168,76,.15); color:#c9a84c; }
-        .footer-bottom-link { font-size:.75rem; color:rgba(255,255,255,.25); text-decoration:none; transition:color .15s; }
-        .footer-bottom-link:hover { color:rgba(201,168,76,.6); }
+        .footer-social { width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.15); color:rgba(255,255,255,.65); transition:all .2s; text-decoration:none; }
+        .footer-social:hover { background:rgba(201,168,76,.2); color:#c9a84c; }
+        .footer-bottom-link { font-size:.75rem; color:rgba(255,255,255,.45); text-decoration:none; transition:color .15s; }
+        .footer-bottom-link:hover { color:rgba(201,168,76,.8); }
       `}</style>
 
       {/* Gold rule */}
