@@ -6,7 +6,7 @@ import { useLang } from '../contexts/LanguageContext'
 
 /* ─── Config — replace with real values ────────────────────────────────── */
 const CONFIG = {
-  paypalMe:       'https://www.paypal.com/donate/?business=donate%40umatulislam.org&currency_code=USD',
+  paypalMe:       'https://www.paypal.com/donate/',
   stripeLink:     'https://buy.stripe.com/test_eVqcN60GU8cD5EJ521a3u00',
   zelleEmail:     'donate@umatulislam.org',
   zellePhone:     '(612) 555-0190',
